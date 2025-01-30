@@ -1,0 +1,13 @@
+com\cars24\csms\data\entities\AppointmentEntities_r1.class
+com\cars24\csms\data\repositories\AppointmentRepository_r1.class
+com\cars24\csms\data\req\SignUpReq.class
+com\cars24\csms\data\repositories\ServiceRepository_r1.class
+com\cars24\csms\data\dao\impl\AppUserDetailsDaoImpl.class
+com\cars24\csms\data\repositories\CustomerRepository_r1.class
+com\cars24\csms\data\repositories\VehicleRepository_r1.class
+com\cars24\csms\data\entities\VehicleEntity_r1.class
+com\cars24\csms\data\dao\AppUserDetailsDao.class
+com\cars24\csms\data\req\LoginReq.class
+com\cars24\csms\data\entities\ServiceEntity_r1.class
+com\cars24\csms\data\resp\LoginResponse.class
+com\cars24\csms\data\entities\CustomerEntity_r1.class
