@@ -1,16 +1,16 @@
 package com.cars24.csms.data.req;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import lombok.NonNull;
 
 @Data
 public class LoginReq {
     @Valid
-    @NotBlank(message = "username cannot be blank!")
+    @NonNull
     private String username;
 
     @Valid
-    @NotBlank(message = "password cannot be blank!")
+    @NonNull
     private String password;
 }

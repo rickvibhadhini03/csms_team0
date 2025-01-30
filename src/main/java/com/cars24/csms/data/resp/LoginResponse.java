@@ -4,8 +4,6 @@ import lombok.Data;
 
 @Data
 public class LoginResponse {
-    private int Id;
+    private Integer id;
     private String username;
-    private String message="login Successful";
-
 }
