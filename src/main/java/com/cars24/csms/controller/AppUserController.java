@@ -1,51 +1,38 @@
 package com.cars24.csms.controller;
 
-import com.cars24.csms.exceptions.UserServiceException;
-import com.cars24.csms.data.dao.AppUserDetailsDao;
+import com.cars24.csms.data.dao.Impl.AppUserDetailsDaoImpl;
+import com.cars24.csms.data.req.LoginReq;
 import com.cars24.csms.data.req.SignUpReq;
 import com.cars24.csms.data.resp.ApiResponse;
-import com.cars24.csms.services.AppUserService;
+import com.cars24.csms.data.resp.LoginResponse;
+import com.cars24.csms.services.impl.AppUserServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-@Slf4j
 @RestController
+@RequestMapping("/users")
 @RequiredArgsConstructor
-@RequestMapping("/user")
-@Service
+@Validated
+@Slf4j
+
 public class AppUserController {
-    private final AppUserDetailsDao appUserDetailsDao;
-    private final AppUserService appUserService;
+    private final AppUserDetailsDaoImpl appUserDao;
+    private final AppUserServiceImpl appUserService;
 
-   /* @PostMapping
-    public ResponseEntity<LoginResponse> getAppUser(@RequestBody Logindetails logindetails) {
-        log.info("[getAppUser] Logindetails: {}", logindetails);
-
-        // Fetch the user details
-        AppUserdetails userDetails = appUserDao.getAppUser(logindetails);
-
-        // Map to LoginResponse
-        LoginResponse response = new LoginResponse();
-        response.setId(userDetails.getId());
-        response.setUsername(userDetails.getUsername());
-
-        return ResponseEntity.ok(response);
-    }*/
-    @PostMapping("/signup")
-    public ResponseEntity<ApiResponse> appUserSignup(@Valid @RequestBody SignUpReq signUpReq){
-        log.info("[appUserSignup] SignUp Request: {}", signUpReq);
-        try{
-            ApiResponse response= appUserService.createUser(signUpReq);
-            return  ResponseEntity.status(response.getStatus()).body(response);
-        }
-        catch(UserServiceException e){
-            throw new UserServiceException("signup failed"+e.getMessage());
-        }
-
+    @GetMapping ("/Login")
+    public  ResponseEntity<LoginResponse>  getUsers(@Valid @RequestBody LoginReq loginRequest){
+        appUserDao.getUserDetails(loginRequest);
+        return ResponseEntity.ok().body(null);
     }
+    @PostMapping ("/Signup")
+    public ResponseEntity<ApiResponse> signUp(@Valid @RequestBody SignUpReq signUpRequest){
+        log.info("[signUp]  signUpRequest {}",signUpRequest);
+        return appUserService.signUp(signUpRequest);
+    }
+
 
 }

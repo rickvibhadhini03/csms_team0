@@ -1,5 +1,6 @@
 package com.cars24.csms.data.req;
 
+<<<<<<< HEAD
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -19,4 +20,28 @@ public class SignUpReq {
 
 
 
+=======
+import lombok.Data;
+
+@Data
+public class SignUpReq {
+    public String getUsername() {
+        return name;
+    }
+
+    public void setUsername(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    String name;
+    String password;
+>>>>>>> fa380fb6e3222d72ff9983df3de66a1d21cc313f
 }

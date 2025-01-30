@@ -2,10 +2,8 @@ package com.cars24.csms.services;
 
 import com.cars24.csms.data.req.SignUpReq;
 import com.cars24.csms.data.resp.ApiResponse;
-import org.springframework.stereotype.Service;
+import org.springframework.http.ResponseEntity;
 
-@Service
 public interface AppUserService {
-    public ApiResponse createUser(SignUpReq signUpReq);
-    //boolean validateUser(String username);
+    ResponseEntity<ApiResponse> signUp(SignUpReq signUpRequest);
 }

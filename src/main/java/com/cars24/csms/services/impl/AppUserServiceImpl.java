@@ -1,45 +1,50 @@
 package com.cars24.csms.services.impl;
 
-import com.cars24.csms.exceptions.UserServiceException;
-import com.cars24.csms.data.dao.AppUserDetailsDao;
-import com.cars24.csms.data.entities.AppUserDetails;
+import com.cars24.csms.data.dao.Impl.AppUserDetailsDaoImpl;
+import com.cars24.csms.data.repositories.AppUserRepository;
 import com.cars24.csms.data.req.SignUpReq;
 import com.cars24.csms.data.resp.ApiResponse;
+import com.cars24.csms.exceptions.UserServiceException;
 import com.cars24.csms.services.AppUserService;
 import lombok.RequiredArgsConstructor;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Slf4j
-@Service
 @RequiredArgsConstructor
+@Service
 public class AppUserServiceImpl implements AppUserService {
-    private final AppUserDetailsDao appUserDetailsDao;
+    private final AppUserDetailsDaoImpl appUserDao;
+    private final AppUserRepository appUserRepository;
 
-    @Override
-    public ApiResponse createUser(SignUpReq signUpReq) {
-        log.info("[createUser] Checking if user exists: {}", signUpReq.getUsername());
 
-        if (appUserDetailsDao.userExists(signUpReq.getUsername())) {
-            throw new UserServiceException("User already exists. Please log in.");
+    public ResponseEntity<ApiResponse> signUp(SignUpReq signUpRequest) {
+        ApiResponse apiResponse = new ApiResponse();
+        log.info("[signUp] IN SERVICE : {} ",signUpRequest);
+        if (appUserDao.checkIfUserExists(signUpRequest)) {
+            //if exists
+            throw new UserServiceException("User already exists");
+        } else {
+            apiResponse.setStatus(HttpStatus.OK.value());
+            apiResponse.setSuccess(true);
+            apiResponse.setMessage("User signed up successfully");
+            apiResponse.setService("APPUSR-" + HttpStatus.OK.value());
+            apiResponse.setData(null);
+
+            appUserDao.RegisterUser(signUpRequest);
+
+            return ResponseEntity.ok().body(apiResponse);
         }
 
-        log.info("[createUser] Creating new user: {}", signUpReq.getUsername());
-        AppUserDetails newUser = new AppUserDetails();
-        newUser.setUsername(signUpReq.getUsername());
-        newUser.setPassword(signUpReq.getPassword());
-        newUser.setEnabled(true);
-
-        appUserDetailsDao.saveUser(newUser);
-
-        ApiResponse response = new ApiResponse();
-        response.setStatus(HttpStatus.CREATED.value());
-        response.setSuccess(true);
-        response.setMessage("User signed up successfully.");
-        response.setData(newUser);
-        response.setService("appUserSignup");
-
-        return response;
     }
 }
+
+
+
+
+
+
+
