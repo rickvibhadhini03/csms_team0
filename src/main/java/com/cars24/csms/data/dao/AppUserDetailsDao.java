@@ -6,7 +6,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface AppUserDetailsDao {
-    String getAppUserDetails(LoginReq loginReq);
+    String getUserDetails(LoginReq loginReq);
+    void RegisterUser(SignUpReq signUpRequest);
+    Boolean checkIfUserExists(SignUpReq signUpRequest);
 
-    String createUser(SignUpReq signUpReq);
 }

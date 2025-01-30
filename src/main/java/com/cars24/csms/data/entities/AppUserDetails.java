@@ -2,25 +2,32 @@ package com.cars24.csms.data.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
+@NoArgsConstructor
 @Data
-@Table(name="userdetails")
 @Entity
+@Table(name = "user_details")
 public class AppUserDetails {
 
+
     @Id
-    @jakarta.persistence.GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="user_id")
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    @Column(name="username",nullable = false)
-    private String username;
+    @jakarta.persistence.Column(name="user_id")
+    @NonNull
+    private Integer id;
 
-    @Column(name="password",nullable = false)
+    @jakarta.persistence.Column(name="user_name")
+    private String name;
+
+    @jakarta.persistence.Column(name="user_password")
     private String password;
 
-    @Column(name="isenable")
-    private boolean isEnable;
+    @jakarta.persistence.Column(name="Active")
+    Boolean Isactive;
+
 
 
 }

@@ -16,46 +16,46 @@ import java.util.Map;
 @Slf4j
 public class GlobalExceptionHandler {
 
-    //any errors like validation or verification errors while taking an input then we directly go to GlobalException
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ApiResponse> handleValidationExceptions(MethodArgumentNotValidException exception)
-    {
+    public ResponseEntity<ApiResponse> handleValidationExceptions(MethodArgumentNotValidException exception ) {
         log.info("[handleValidationExceptions]");
 
-        Map<String,String> errorMap=new HashMap<>();
-        exception.getBindingResult().getFieldErrors().forEach(error->
+        Map<String, String> errorMap = new HashMap<>();
+        exception.getBindingResult().getFieldErrors().forEach(error ->
         {
-            errorMap.put(error.getField(),error.getDefaultMessage());
+            errorMap.put(error.getField(), error.getDefaultMessage());
         });
 
-        ApiResponse apiResponse=new ApiResponse();
-        apiResponse.setStatusCode(HttpStatus.BAD_REQUEST.value());
+        ApiResponse apiResponse = new ApiResponse();
+        // Add your user creation logic here
+
+        apiResponse.setStatus(HttpStatus.OK.value());
         apiResponse.setSuccess(false);
-        apiResponse.setMessage("Validation failed");
-        apiResponse.setService("APPUSER "+HttpStatus.BAD_REQUEST.value());
+        apiResponse.setMessage("invalid data");
+        apiResponse.setService("APPUSR-"+HttpStatus.OK.value());
         apiResponse.setData(errorMap);
         return ResponseEntity.badRequest().body(apiResponse);
+
+
+
     }
 
+    //@ExceptionHandler(MethodArgumentNotValidException.class)
     @ExceptionHandler(UserServiceException.class)
-    public ResponseEntity<ApiResponse> handleUserServiceExceptions(UserServiceException exception)
-    {
-        ApiResponse apiResponse=new ApiResponse();
-        apiResponse.setStatusCode(HttpStatus.BAD_REQUEST.value());
-        apiResponse.setSuccess(false);
-        apiResponse.setMessage("Invalid signUp data");
-        apiResponse.setService("APPUSER "+HttpStatus.BAD_REQUEST.value());
-        //apiResponse.setData(null);
-        return ResponseEntity.ok().body(apiResponse);
+    public ResponseEntity<ApiResponse> handleUserServiceException(UserServiceException exception) {
+        //ApiRes apiResponse = new ApiRes();
+
+        // Add your user creation logic here
+        ApiResponse apiRespons = new ApiResponse();
+        apiRespons.setStatus(HttpStatus.BAD_REQUEST.value());
+        apiRespons.setSuccess(false);
+        apiRespons.setMessage(exception.getMessage());
+        apiRespons.setService("APPUSR-"+HttpStatus.OK.value());
+        apiRespons.setData(null);
+        return ResponseEntity.badRequest().body(apiRespons);
 
     }
-
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<String> handleInvalidDateFormat(IllegalArgumentException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
-    }
-
-
-
-
 }
+
+
+
