@@ -1,4 +1,4 @@
-package com.cars24.csms.controllers;
+package com.cars24.csms.controller;
 
 import com.cars24.csms.data.req.CreateCustomerReq;
 import com.cars24.csms.data.req.GetCustomerReq;
