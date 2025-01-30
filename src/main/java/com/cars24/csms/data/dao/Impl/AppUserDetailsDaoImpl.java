@@ -16,7 +16,7 @@ public class AppUserDetailsDaoImpl implements AppUserDetailsDao {
 
     private final AppUserRepository appUserRepository;
 
-   //@Override
+    //@Override
     public String getUserDetails(LoginReq loginRequest){
         AppUserDetails appUserDetails = appUserRepository.findAppUserDetailsByNameAndPassword(loginRequest.getUsername(),loginRequest.getPassword());
         log.info(String.valueOf(appUserDetails));
@@ -45,4 +45,3 @@ public class AppUserDetailsDaoImpl implements AppUserDetailsDao {
 
 
 }
-
