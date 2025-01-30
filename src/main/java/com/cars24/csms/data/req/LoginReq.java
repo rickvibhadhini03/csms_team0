@@ -1,19 +1,16 @@
 package com.cars24.csms.data.req;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.NonNull;
 
 @Data
 public class LoginReq {
-
+    @Valid
+    @NonNull
+    private String username;
 
     @Valid
-    @NotNull
-    private String name;
-
-    @Valid
-    @NotNull
+    @NonNull
     private String password;
-
 }

@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AppUserRepository extends JpaRepository<AppUserDetails,Integer> {
-    public AppUserDetails findAppUserDetailsByNameAndPassword(String name,String password);
-    boolean existsByName(String name);
-
+    public AppUserDetails findAppUserDetailsByNameAndPassword( String username, String password);
+    public boolean existsAppUserDetailsByName(String username);
 }
